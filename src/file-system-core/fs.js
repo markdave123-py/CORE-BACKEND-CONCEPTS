@@ -2,4 +2,4 @@ const fs = require("fs")
 
 const content = fs.readFileSync("./file.txt")
 
-console.log(content.toString("utf-8"))
+console.log(content.toString("utf-8++"))

@@ -1,12 +1,25 @@
-const buff = Buffer.alloc(8)
+const { Buffer } = require("buffer");
 
-buff.write("sTt", "utf-8")
+const buff = Buffer.alloc(2);
 
-console.log(buff.toJSON())
+buff[0] = 72
+buff.writeInt8(-10, 1)
 
-const buff2 = Buffer.from("STRING", "utf-8")
-console.log(buff2)
+buff1 = Buffer.from([79, 101, 37])
 
-const buff3 = Buffer.from([116, 112, 9, 255])
+console.log(buff1.toString("utf-8"))
 
-console.log(buff3.toString("utf-8"), buff3)
+console.log(buff.toString('base64'));
+
+
+
+// buff.write("sTt", "utf-8")
+
+// console.log(buff.toJSON())
+
+// const buff2 = Buffer.from("STRING", "utf-8")
+// console.log(buff2)
+
+// const buff3 = Buffer.from([116, 112, 9, 255])
+
+// console.log(buff3.toString("utf-8"), buff3)

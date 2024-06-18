@@ -2,24 +2,43 @@ const fs = require("node:fs/promises");
 
 (async () => {
   const fileReadHandler = await fs.open(
-    "/Users/mac/Downloads/Queue-Data-structure1.png",
+    "src.txt",
     "r"
   );
-  const fileWriteHandler = await fs.open("dest.png", "w");
+  const fileWriteHandler = await fs.open("dest.txt", "w");
 
   const readStream = fileReadHandler.createReadStream();
     const writeStream = fileWriteHandler.createWriteStream();
 
-    let split;
+    let split = "";
 
-  readStream.on("data", (chunk) => {
-      if (!writeStream.write(chunk.toString())) {
-          const nums = chunk.toString().split("");
-          if (Number(nums[nums.length - 2] + 1 !== Number(nums[nums.length - 1]))) {
-              split = chunk[chunk[length - 1]];
-              readStream.pause();
-            }
+    readStream.on("data", (chunk) => {
+
+        const nums = chunk.toString().split("  ");
+
+        if (Number(nums[0]) !== Number(nums[1]) - 1) {
+          if (split) {
+            nums[0] = split.trim() + nums[0].trim();
+          }
         }
+
+        if (
+          Number(nums[nums.length - 2] + 1 !== Number(nums[nums.length - 1]))
+        ) {
+          split = nums.pop()
+
+        }
+
+        nums.forEach((num) => {
+            let n = Number(num)
+            if (n % 2 === 0) {
+                if (!writeStream.write(" " + n + " ")) {
+                  readStream.pause();
+                }
+            }
+        })
+
+
     });
 
     writeStream.on("drain", () => {
